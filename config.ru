@@ -1,3 +1,5 @@
+#\ -s puma
+
 require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'active_record'

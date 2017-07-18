@@ -14,6 +14,7 @@ gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'omniauth-github'
 gem 'forgery'
+gem 'puma'
 
 group :development do
   gem 'rubocop'
