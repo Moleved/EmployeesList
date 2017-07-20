@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   get '/' do
     @users = User.all
-    erb :users
+    haml :users
   end
 
   get '/:id' do
