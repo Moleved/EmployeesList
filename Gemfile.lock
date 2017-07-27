@@ -51,6 +51,7 @@ GEM
       ast (~> 2.2)
     pg (0.21.0)
     powerpack (0.1.1)
+    puma (3.9.1)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
@@ -95,6 +96,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-oauth2
   pg
+  puma
   rake
   rubocop
   sinatra
@@ -104,4 +106,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.1
+   1.15.2
