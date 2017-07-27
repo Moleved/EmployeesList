@@ -12,8 +12,7 @@ $LOAD_PATH.push File.expand_path(__dir__)
 
 %w[application].each { |f| require "app/helpers/#{f}_helper" }
 %w[application users session].each { |f| require "app/controllers/#{f}_controller" }
-
-%w[user].each { |f| require "models/#{f}" }
+%w[user].each { |f| require "app/models/#{f}" }
 
 run ApplicationController
 map('/users') { run UsersController }
