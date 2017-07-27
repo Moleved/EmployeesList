@@ -22,9 +22,7 @@ class User < ActiveRecord::Base
     user
   end
 
-  private
-
-  def create_user_from_github(args)
+  def self.create_user_from_github(args)
     user = User.new
     user.uid = args['uid']
     user.provider = args['provider']

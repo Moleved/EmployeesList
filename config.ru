@@ -10,13 +10,11 @@ require 'bcrypt'
 require 'omniauth-github'
 require 'forgery'
 
-require './app/helpers/application_helper.rb'
-require './app/controllers/application_controller.rb'
-require './app/controllers/users_controller.rb'
-require './app/controllers/session_controller.rb'
+$LOAD_PATH.push File.expand_path(__dir__)
 
-Dir.glob('./app/{helpers, controllers}/*.rb').each { |file| require file }
-Dir.glob('./models/*.rb').each { |file| require file }
+%w[application].each { |f| require "app/helpers/#{f}_helper" }
+%w[application users session].each { |f| require "app/controllers/#{f}_controller" }
+%w[user].each { |f| require "app/models/#{f}" }
 
 run ApplicationController
 map('/users') { run UsersController }

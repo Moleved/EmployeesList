@@ -2,7 +2,7 @@ class SessionController < ApplicationController
   attr_reader :user, :token
 
   get '/auth/sign_up' do
-    erb :sign_up
+    haml :sign_up
   end
 
   post '/auth/sign_up' do
@@ -18,7 +18,7 @@ class SessionController < ApplicationController
   end
 
   get '/auth/sign_in' do
-    erb :sign_in
+    haml :sign_in
   end
 
   post '/auth/sign_in' do
@@ -30,7 +30,7 @@ class SessionController < ApplicationController
 
       redirect to('/')
     else
-      erb :sign_in
+      haml :sign_in
     end
   end
 
