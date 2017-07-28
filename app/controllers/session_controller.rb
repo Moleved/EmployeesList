@@ -1,19 +1,19 @@
 class SessionController < ApplicationController
-  attr_reader :user, :token
+  attr_accessor :user, :token, :params
 
   get '/auth/sign_up' do
     haml :sign_up
   end
 
   post '/auth/sign_up' do
-    @user = User.new(params[:user])
+    user = User.new(params[:user])
     if user.save
       generate_token
       write_token_to_session
 
       redirect '/users'
     else
-      'Sorry, there was an error!'
+      user.errors.full_messages.join(', ')
     end
   end
 
@@ -22,9 +22,9 @@ class SessionController < ApplicationController
   end
 
   post '/auth/sign_in' do
-    @params = params[:user]
-    @user = User.all.find_by email: @params[:email]
-    if user.password == @params[:password]
+    params = params[:user]
+    user = User.find_by email: params[:email]
+    if user.password == params[:password]
       generate_token
       write_token_to_session
 
@@ -40,7 +40,7 @@ class SessionController < ApplicationController
   end
 
   get '/auth/:provider/callback' do
-    @user = User.from_github(request.env['omniauth.auth'])
+    user = User.from_github(request.env['omniauth.auth'])
     generate_token
     write_token_to_session
     redirect '/'
@@ -50,7 +50,7 @@ class SessionController < ApplicationController
 
   def generate_token
     headers = { exp: Time.now.to_i + 30 }
-    @token = JWT.encode({ user_id: user.id }, settings.signing_key, 'RS256', headers)
+    token = JWT.encode({ user_id: user.id }, settings.signing_key, 'RS256', headers)
   end
 
   def write_token_to_session

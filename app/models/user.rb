@@ -26,9 +26,9 @@ class User < ActiveRecord::Base
     user = User.new
     user.uid = args['uid']
     user.provider = args['provider']
-    user.name = args['info']['name']
-    user.url = args['info']['urls']['GitHub']
-    user.email = args['info']['email']
+    user.name = args.dig('name')
+    user.url = args.dig('GitHub')
+    user.email = args.dig('email')
     user.password = Forgery::Basic.password
     user.save!
     user
