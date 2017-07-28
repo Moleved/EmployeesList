@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: list
+  pool: 2
+  username: <%= ENV['PG_DEVELOPMENT_USER'] %>
+  password: <%= ENV['PG_DEVELOPMENT_KEY'] %>
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: employees_list
+  pool: 2
+  username: <%= ENV['PG_USER'] %>
+  password: <%= ENV['PG_KEY'] %>

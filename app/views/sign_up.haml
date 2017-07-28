@@ -1,0 +1,7 @@
+%form.grid_4{action: '/auth/sign_in', method: 'POST'}
+  %input{name: 'user[name]', placeholder: 'Enter name'}
+  %input{name: 'user[email]', placeholder: 'Enter e-mail'}
+  %input{type: 'password', name: 'user[password]', placeholder: 'Enter password'}
+  %input{type: 'submit', value: 'Submit'}
+
+%a{href: '/auth/github'} Sign up with GitHub
