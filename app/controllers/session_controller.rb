@@ -1,5 +1,5 @@
 class SessionController < ApplicationController
-  attr_accessor :user, :token, :params
+  attr_reader :user, :token, :params
 
   get '/auth/sign_up' do
     haml :sign_up
@@ -22,9 +22,9 @@ class SessionController < ApplicationController
   end
 
   post '/auth/sign_in' do
-    params = params[:user]
-    user = User.find_by email: params[:email]
-    if user.password == params[:password]
+    user_params = params[:user]
+    user = User.find_by email: user_params[:email]
+    if user.password == user_params[:password]
       generate_token
       write_token_to_session
 
@@ -40,7 +40,7 @@ class SessionController < ApplicationController
   end
 
   get '/auth/:provider/callback' do
-    user = User.from_github(request.env['omniauth.auth'])
+    @user = User.from_github(request.env['omniauth.auth'])
     generate_token
     write_token_to_session
     redirect '/'
@@ -50,7 +50,7 @@ class SessionController < ApplicationController
 
   def generate_token
     headers = { exp: Time.now.to_i + 30 }
-    token = JWT.encode({ user_id: user.id }, settings.signing_key, 'RS256', headers)
+    @token = JWT.encode({ user_id: user.id }, settings.signing_key, 'RS256', headers)
   end
 
   def write_token_to_session
