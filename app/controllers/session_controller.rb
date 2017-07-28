@@ -1,5 +1,5 @@
 class SessionController < ApplicationController
-  attr_reader :user, :token, :params
+  attr_reader :user, :token
 
   get '/auth/sign_up' do
     haml :sign_up
@@ -14,6 +14,8 @@ class SessionController < ApplicationController
       redirect '/users'
     else
       user.errors.full_messages.join(', ')
+
+      redirect '/sign_up'
     end
   end
 
